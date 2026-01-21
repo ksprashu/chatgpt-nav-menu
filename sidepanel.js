@@ -73,6 +73,14 @@ const renderPrompts = (prompts) => {
   });
 };
 
+const handlePromptUpdate = async (prompts) => {
+  const currentHash = hashPrompts(prompts);
+  if (currentHash !== lastPromptHash) {
+    lastPromptHash = currentHash;
+    renderPrompts(prompts);
+  }
+};
+
 const jumpToPrompt = async (promptId) => {
   const tab = await getActiveTab();
   if (!tab || !tab.id) {
@@ -87,12 +95,19 @@ const jumpToPrompt = async (promptId) => {
 
 const refreshPrompts = async () => {
   const prompts = await requestPrompts();
-  const currentHash = hashPrompts(prompts);
-  if (currentHash !== lastPromptHash) {
-    lastPromptHash = currentHash;
-    renderPrompts(prompts);
-  }
+  await handlePromptUpdate(prompts);
 };
 
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.type !== "promptsUpdated") {
+    return;
+  }
+
+  getActiveTab().then((tab) => {
+    if (tab?.id && sender.tab?.id === tab.id) {
+      handlePromptUpdate(message.prompts ?? []);
+    }
+  });
+});
+
 refreshPrompts();
-setInterval(refreshPrompts, POLL_INTERVAL_MS);

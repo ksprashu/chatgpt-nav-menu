@@ -21,6 +21,21 @@ const collectPrompts = () => {
     .filter((prompt) => prompt.text.length > 0);
 };
 
+let notifyTimeout;
+const notifyPromptUpdate = () => {
+  if (notifyTimeout) {
+    window.clearTimeout(notifyTimeout);
+  }
+
+  notifyTimeout = window.setTimeout(() => {
+    chrome.runtime.sendMessage({
+      type: "promptsUpdated",
+      prompts: collectPrompts(),
+    });
+    notifyTimeout = null;
+  }, 150);
+};
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "getPrompts") {
     sendResponse({ prompts: collectPrompts() });
@@ -49,3 +64,11 @@ highlightStyle.textContent = `
 `;
 
 document.head.appendChild(highlightStyle);
+
+const observer = new MutationObserver(() => notifyPromptUpdate());
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+});
+
+notifyPromptUpdate();
