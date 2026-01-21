@@ -1,0 +1,106 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: #0f1117;
+  color: #f7f7f7;
+}
+
+header {
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+p {
+  margin: 0;
+  font-size: 13px;
+  color: #b8bbc2;
+}
+
+.status {
+  font-size: 13px;
+  color: #8f93a1;
+  margin-bottom: 12px;
+}
+
+.prompt-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prompt-item {
+  border-radius: 10px;
+  background: #1a1e27;
+  padding: 10px 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.prompt-item:hover,
+.prompt-item:focus-visible {
+  border-color: #4a7dff;
+  background: #22293a;
+}
+
+.prompt-item__index {
+  font-size: 11px;
+  color: #9ea3af;
+  margin-bottom: 6px;
+}
+
+.prompt-item__text {
+  font-size: 13px;
+  line-height: 1.35;
+  color: #f7f7f7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  font-size: 13px;
+  color: #8f93a1;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #f6f7fb;
+    color: #111318;
+  }
+
+  p,
+  .status,
+  .prompt-item__index,
+  .empty-state {
+    color: #606571;
+  }
+
+  .prompt-item {
+    background: #ffffff;
+    border-color: #e6e9f2;
+  }
+
+  .prompt-item:hover,
+  .prompt-item:focus-visible {
+    border-color: #3758f9;
+    background: #f4f6ff;
+  }
+
+  .prompt-item__text {
+    color: #111318;
+  }
+}
