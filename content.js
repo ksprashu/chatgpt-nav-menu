@@ -1,5 +1,6 @@
 const PROMPT_SELECTOR = '[data-message-author-role="user"]';
 const PROMPT_ID_PREFIX = "chatgpt-prompt-";
+const HIGHLIGHT_DURATION_MS = 1500;
 
 const extractPromptText = (element) =>
   element.innerText.replace(/\s+/g, " ").trim();

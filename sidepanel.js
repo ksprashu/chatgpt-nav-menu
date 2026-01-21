@@ -1,7 +1,6 @@
 const statusEl = document.getElementById("status");
 const listEl = document.getElementById("prompt-list");
 
-const POLL_INTERVAL_MS = 2000;
 let lastPromptHash = "";
 
 const hashPrompts = (prompts) =>
@@ -27,7 +26,7 @@ const requestPrompts = async () => {
       type: "getPrompts",
     });
     return response?.prompts ?? [];
-  } catch (error) {
+  } catch {
     statusEl.textContent = "Unable to read prompts. Open a ChatGPT tab.";
     return [];
   }
