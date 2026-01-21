@@ -31,16 +31,15 @@ const sendPromptsUpdated = () => {
     return;
   }
 
+  const message = {
+    type: "promptsUpdated",
+    prompts: collectPrompts(),
+  };
+
   try {
-    chrome.runtime.sendMessage(
-      {
-        type: "promptsUpdated",
-        prompts: collectPrompts(),
-      },
-      () => {
-        void chrome.runtime.lastError;
-      }
-    );
+    chrome.runtime.sendMessage(message, () => {
+      void chrome.runtime.lastError;
+    });
   } catch (error) {
     // Ignore errors caused by extension reloads or invalidated contexts.
   }
