@@ -16,6 +16,7 @@ A Chrome extension that provides a sidebar list of your prompts in a ChatGPT con
 ## How it works
 - The content script reads all messages authored by you (`data-message-author-role="user"`).
 - The side panel polls for the latest prompt list and renders it as a clickable timeline.
++ The side panel receives updates from the content script and renders the prompt list as a clickable timeline.
 
 ## Notes
 - Works on `https://chat.openai.com/*` and `https://chatgpt.com/*`.
