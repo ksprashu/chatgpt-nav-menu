@@ -20,6 +20,11 @@ const openSidePanel = async (tab) => {
   try {
     await chrome.sidePanel.open({ tabId: tab.id });
   } catch (error) {
+    // When openPanelOnActionClick is true, chrome.action.onClicked fires if the side panel is already open.
+    // In this case, calling sidePanel.open() throws an error, which we can safely ignore.
+    if (String(error).includes("The side panel is already open")) {
+      return;
+    }
     console.warn("Unable to open side panel", error);
   }
 };
