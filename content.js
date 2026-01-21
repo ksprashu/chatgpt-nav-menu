@@ -23,16 +23,36 @@ const collectPrompts = () => {
 };
 
 let notifyTimeout;
+const canSendRuntimeMessage = () =>
+  typeof chrome !== "undefined" && Boolean(chrome.runtime?.id);
+
+const sendPromptsUpdated = () => {
+  if (!canSendRuntimeMessage()) {
+    return;
+  }
+
+  try {
+    chrome.runtime.sendMessage(
+      {
+        type: "promptsUpdated",
+        prompts: collectPrompts(),
+      },
+      () => {
+        void chrome.runtime.lastError;
+      }
+    );
+  } catch (error) {
+    // Ignore errors caused by extension reloads or invalidated contexts.
+  }
+};
+
 const notifyPromptUpdate = () => {
   if (notifyTimeout) {
     window.clearTimeout(notifyTimeout);
   }
 
   notifyTimeout = window.setTimeout(() => {
-    chrome.runtime.sendMessage({
-      type: "promptsUpdated",
-      prompts: collectPrompts(),
-    });
+    sendPromptsUpdated();
     notifyTimeout = null;
   }, 150);
 };
