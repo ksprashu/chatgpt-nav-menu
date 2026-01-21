@@ -1,6 +1,7 @@
 const statusEl = document.getElementById("status");
 const listEl = document.getElementById("prompt-list");
 
+const POLL_INTERVAL_MS = 2000;
 let lastPromptHash = "";
 
 const hashPrompts = (prompts) =>

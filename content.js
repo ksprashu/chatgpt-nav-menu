@@ -47,7 +47,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "center" });
       target.classList.add("chatgpt-prompt-highlight");
-      setTimeout(() => target.classList.remove("chatgpt-prompt-highlight"), 1500);
+      setTimeout(() => target.classList.remove("chatgpt-prompt-highlight"), HIGHLIGHT_DURATION_MS);
     }
   }
 
