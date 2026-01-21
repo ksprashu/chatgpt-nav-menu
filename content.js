@@ -24,7 +24,7 @@ const collectPrompts = () => {
 
 let notifyTimeout;
 const canSendRuntimeMessage = () =>
-  typeof chrome !== "undefined" && Boolean(chrome.runtime?.id);
+  typeof chrome !== "undefined" && chrome.runtime?.id;
 
 const sendPromptsUpdated = () => {
   if (!canSendRuntimeMessage()) {
