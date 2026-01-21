@@ -3,8 +3,14 @@
   "name": "ChatGPT Prompt Navigator",
   "version": "1.0.0",
   "description": "Shows a sidebar list of your prompts in ChatGPT conversations and lets you jump to them.",
-  "permissions": ["activeTab", "tabs"],
+  "permissions": ["activeTab", "tabs", "sidePanel"],
   "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "ChatGPT Prompt Navigator"
+  },
   "side_panel": {
     "default_path": "sidepanel.html"
   },
