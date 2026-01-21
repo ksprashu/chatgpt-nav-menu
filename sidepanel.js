@@ -26,7 +26,8 @@ const requestPrompts = async () => {
       type: "getPrompts",
     });
     return response?.prompts ?? [];
-  } catch {
+  } catch (error) {
+    console.error("Failed to request prompts:", error);
     statusEl.textContent = "Unable to read prompts. Open a ChatGPT tab.";
     return [];
   }
